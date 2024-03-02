@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: auto-service
+  jpa:
+    hibernate:
+#      ddl-auto: update
+      ddl-auto: validate
+    properties:
+      dialect: org.hibernate.dialect.PostgreSQL15Dialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auto_service_db
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+    hikari:
+      auto-commit: false

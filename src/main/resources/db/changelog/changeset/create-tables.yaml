@@ -1,0 +1,356 @@
+databaseChangeLog:
+  - changeSet:
+      id: create tables
+      author: alobankov
+      changes:
+        - createTable:
+            tableName: user_
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_user_
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: full_name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_role
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+
+        - createTable:
+            tableName: user_role
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: role_id
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_role
+            constraintName: fk_user_role_user
+            referencedColumnNames: id
+            referencedTableName: user_
+
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: user_role
+            constraintName: fk_user_role_role
+            referencedColumnNames: id
+            referencedTableName: role
+
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_car
+                  name: brand
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_car
+                  name: model
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: car
+            constraintName: fk_car_user
+            referencedColumnNames: id
+            referencedTableName: user_
+
+        - createTable:
+            tableName: consult
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_consult
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: question
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: rsp_destination
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: rsp_method
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: status
+                  type: VARCHAR(255)
+
+        - createTable:
+            tableName: service
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_service
+                  name: id
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+
+        - createTable:
+            tableName: cost
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_cost
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: cost_amount
+                  type: DECIMAL
+              - column:
+                  constraints:
+                    nullable: false
+                  name: car_brand
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: car_model
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: service_id
+                  type: VARCHAR(255)
+
+        - addForeignKeyConstraint:
+            baseColumnNames: car_brand, car_model
+            baseTableName: cost
+            constraintName: fk_cost_car
+            onDelete: RESTRICT
+            referencedColumnNames: brand, model
+            referencedTableName: car
+
+        - addForeignKeyConstraint:
+            baseColumnNames: service_id
+            baseTableName: cost
+            constraintName: fk_cost_service
+            onDelete: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: service
+
+        - createTable:
+            tableName: order_
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_order
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: comment
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: order_
+            constraintName: fk_car_user
+            referencedColumnNames: id
+            referencedTableName: user_
+
+        - createTable:
+            tableName: history
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_history
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: order_id
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: history
+            constraintName: fk_history_order
+            referencedColumnNames: id
+            referencedTableName: order_
+
+        - createTable:
+            tableName: service_center
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_service_center
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: main_phone
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: address
+                  type: VARCHAR(255)
+
+        - createTable:
+            tableName: review
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_review
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: comment
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: service_center_id
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: review
+            constraintName: fk_review_user
+            referencedColumnNames: id
+            referencedTableName: user_
+
+        - addForeignKeyConstraint:
+            baseColumnNames: service_center_id
+            baseTableName: review
+            constraintName: fk_review_service_center
+            referencedColumnNames: id
+            referencedTableName: service_center
+
+        - createSequence:
+            sequenceName: review_seq
+            incrementBy: 1
+
+        - createSequence:
+            sequenceName: consult_seq
+            incrementBy: 1
+
+        - createSequence:
+            sequenceName: cost_seq
+            incrementBy: 1
+
+        - createSequence:
+            sequenceName: history_seq
+            incrementBy: 1
+
+        - createSequence:
+            sequenceName: order_seq
+            incrementBy: 1
+
+        - createSequence:
+            sequenceName: role_seq
+            incrementBy: 1
+
+        - createSequence:
+            sequenceName: service_center_seq
+            incrementBy: 1
+
+        - createSequence:
+            sequenceName: user_seq
+            incrementBy: 1
+
+
+
+
