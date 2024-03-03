@@ -10,7 +10,14 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "cost")
+@Table(
+        name = "cost",
+        indexes = @Index(
+                name = "idx_cost",
+                columnList = "car_brand, car_model, service_id",
+                unique = true
+        )
+)
 @NoArgsConstructor
 public class CostEntity {
     @Id
@@ -19,13 +26,13 @@ public class CostEntity {
     private Long id;
     @Column(name = "cost_amount", nullable = false)
     private BigDecimal costAmount;
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns(value = {
             @JoinColumn(name = "car_brand", referencedColumnName = "brand"),
             @JoinColumn(name = "car_model", referencedColumnName = "model")
     })
     private CarEntity carEntity;
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id", referencedColumnName = "id")
     private ServiceEntity serviceEntity;
 }

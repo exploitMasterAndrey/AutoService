@@ -8,7 +8,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CarEntityMapper {
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "brand", source = "brand")
     @Mapping(target = "model", source = "model")
     @Mapping(target = "description", source = "description")

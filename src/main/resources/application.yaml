@@ -1,6 +1,6 @@
 spring:
   application:
-    name: auto-service
+    name: auto-service-application
   jpa:
     hibernate:
 #      ddl-auto: update

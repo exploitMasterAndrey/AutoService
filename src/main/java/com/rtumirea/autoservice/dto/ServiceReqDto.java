@@ -1,6 +1,7 @@
 package com.rtumirea.autoservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,11 +9,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class NewCarReqDto {
-    @JsonProperty("brand")
-    private String brand;
-    @JsonProperty("model")
-    private String model;
+public class ServiceReqDto {
+    @NotNull
+    @JsonProperty("id")
+    private String id;
+    @NotNull
+    @JsonProperty("name")
+    private String name;
+    @NotNull
     @JsonProperty("description")
     private String description;
 }

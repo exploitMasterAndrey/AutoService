@@ -94,18 +94,6 @@ databaseChangeLog:
               - column:
                   name: description
                   type: VARCHAR(255)
-              - column:
-                  constraints:
-                    nullable: false
-                  name: user_id
-                  type: BIGINT
-
-        - addForeignKeyConstraint:
-            baseColumnNames: user_id
-            baseTableName: car
-            constraintName: fk_car_user
-            referencedColumnNames: id
-            referencedTableName: user_
 
         - createTable:
             tableName: consult
@@ -192,7 +180,6 @@ databaseChangeLog:
             baseColumnNames: car_brand, car_model
             baseTableName: cost
             constraintName: fk_cost_car
-            onDelete: RESTRICT
             referencedColumnNames: brand, model
             referencedTableName: car
 
@@ -200,9 +187,20 @@ databaseChangeLog:
             baseColumnNames: service_id
             baseTableName: cost
             constraintName: fk_cost_service
-            onDelete: RESTRICT
             referencedColumnNames: id
             referencedTableName: service
+
+        - createIndex:
+            indexName:  idx_cost
+            tableName: cost
+            unique:  true
+            columns:
+              - column:
+                  name: car_brand
+              - column:
+                  name: car_model
+              - column:
+                  name: service_id
 
         - createTable:
             tableName: order_
