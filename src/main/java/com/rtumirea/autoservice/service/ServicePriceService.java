@@ -39,6 +39,25 @@ public class ServicePriceService {
     private final CostEntityMapper costEntityMapper;
     private final CostModelMapper costModelMapper;
 
+    public CostModel calculatePrice(String carBrand, String carModel, String serviceId){
+        Optional<CostEntity> optCost = costRepository.findCostByCarBrandAndCarModelAndServiceId(carBrand, carModel, serviceId);
+        CostEntity costEntity;
+        if (optCost.isPresent()){
+            costEntity = optCost.get();
+            return costModelMapper.toModel(costEntity);
+        } else {
+            String message = String.format("Unable to find cost(car_brand=%s, car_model=%s, serviceId=%s)", carBrand, carModel, serviceId);
+            log.error(message);
+            throw new AutoServiceException(message);
+        }
+    }
+
+    public List<ServiceModel> getAllServices(){
+        log.info("Getting all services");
+        List<ServiceEntity> serviceEntities = serviceRepository.findAll();
+        return serviceModelMapper.toModels(serviceEntities);
+    }
+
     //CAR
     @Transactional
     public CarModel createCar(CarModel carModel){

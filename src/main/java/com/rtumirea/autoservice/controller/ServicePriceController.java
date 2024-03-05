@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @Slf4j
@@ -30,6 +32,23 @@ public class ServicePriceController {
     private final ServiceRspDtoMapper serviceRspDtoMapper;
     private final CostModelMapper costModelMapper;
     private final CostRspDtoMapper costRspDtoMapper;
+
+    @GetMapping("/calc-price")
+    public CostRspDto calculatePrice(@RequestParam(value = "car_brand") String brand,
+                                     @RequestParam(value = "car_model") String model,
+                                     @RequestParam(value = "service_id") String serviceId
+    ){
+        log.info("Received new price calculation request(car_brand={}, car_model={}, service_id={})", brand, model, serviceId);
+        CostModel costModel = servicePriceService.calculatePrice(brand, model, serviceId);
+        return costRspDtoMapper.toDto(costModel);
+    }
+
+    @GetMapping("/get-all-services")
+    public List<ServiceRspDto> getAllServices(){
+        log.info("Received all services request");
+        List<ServiceModel> serviceModels = servicePriceService.getAllServices();
+        return serviceRspDtoMapper.toDtos(serviceModels);
+    }
 
     @PostMapping(value = "/create-car", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public CarRspDto createCar(@Valid @RequestBody CarReqDto carReqDto){
