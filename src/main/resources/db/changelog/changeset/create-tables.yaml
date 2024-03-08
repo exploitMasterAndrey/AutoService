@@ -144,6 +144,11 @@ databaseChangeLog:
               - column:
                   name: description
                   type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: image
+                  type: BLOB
 
         - createTable:
             tableName: cost
@@ -248,6 +253,11 @@ databaseChangeLog:
                     nullable: false
                   name: order_id
                   type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: image
+                  type: BLOB
 
         - addForeignKeyConstraint:
             baseColumnNames: order_id
@@ -276,6 +286,11 @@ databaseChangeLog:
                     nullable: false
                   name: address
                   type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: image
+                  type: BLOB
 
         - createTable:
             tableName: review

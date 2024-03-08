@@ -33,7 +33,7 @@ public class UserEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<RoleEntity> roleEntitySet;
+    private Set<RoleEntity> roleEntities;
 
     @OneToMany(
             fetch = FetchType.EAGER,
@@ -44,7 +44,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roleEntities;
     }
 
     @Override

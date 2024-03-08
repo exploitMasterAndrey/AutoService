@@ -17,8 +17,9 @@ public class HistoryItemEntity {
     private Long id;
     @Column(name = "description", nullable = false)
     private String description;
-//    @Column(name = "image", nullable = false)
-//    private String image;
+    @Lob
+    @Column(name = "image", nullable = false)
+    private byte[] image;
 
     @ManyToOne(
             fetch = FetchType.LAZY

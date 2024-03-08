@@ -12,17 +12,21 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ConsultModelMapper {
+    @Mapping(target = "consultId", ignore = true)
     @Mapping(target = "question", source = "question")
     @Mapping(target = "responseDestination", source = "responseDestination")
     @Mapping(target = "responseMethod", source = "responseMethod")
+    @Mapping(target = "status", ignore = true)
     ConsultModel toModel(CreateConsultReqDto createConsultReqDto);
 
     @Mapping(target = "consultId", source = "consultId")
     @Mapping(target = "question", source = "question")
     @Mapping(target = "responseDestination", source = "responseDestination")
     @Mapping(target = "responseMethod", source = "responseMethod")
+    @Mapping(target = "status", ignore = true)
     ConsultModel toModel(UpdateConsultReqDto updateConsultReqDto);
 
+    @Mapping(target = "consultId", ignore = true)
     @Mapping(target = "question", source = "question")
     @Mapping(target = "responseDestination", source = "responseDestination")
     @Mapping(target = "responseMethod", source = "responseMethod")

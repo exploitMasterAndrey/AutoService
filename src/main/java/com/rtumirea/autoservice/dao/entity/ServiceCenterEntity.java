@@ -21,6 +21,9 @@ public class ServiceCenterEntity {
     private String mainPhone;
     @Column(name = "address", nullable = false)
     private String address;
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
     @OneToMany(
             fetch = FetchType.LAZY,
             orphanRemoval = true,
