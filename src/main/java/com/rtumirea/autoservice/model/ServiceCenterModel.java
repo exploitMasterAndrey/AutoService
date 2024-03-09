@@ -13,6 +13,6 @@ public class ServiceCenterModel {
     private Long id;
     private String mainPhone;
     private String address;
-    private byte[] image;
+    private ImageModel imageModel;
     private List<ReviewModel> reviewModels;
 }

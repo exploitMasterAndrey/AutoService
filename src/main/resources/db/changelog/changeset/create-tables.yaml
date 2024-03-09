@@ -4,6 +4,26 @@ databaseChangeLog:
       author: alobankov
       changes:
         - createTable:
+            tableName: file
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_file
+                  name: file_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: file_type
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: file_data
+                  type: BLOB
+        - createTable:
             tableName: user_
             columns:
               - column:
@@ -144,11 +164,6 @@ databaseChangeLog:
               - column:
                   name: description
                   type: VARCHAR(255)
-              - column:
-                  constraints:
-                    nullable: false
-                  name: image
-                  type: BLOB
 
         - createTable:
             tableName: cost
@@ -256,8 +271,8 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: image
-                  type: BLOB
+                  name: file_id
+                  type: UUID
 
         - addForeignKeyConstraint:
             baseColumnNames: order_id
@@ -265,6 +280,13 @@ databaseChangeLog:
             constraintName: fk_history_order
             referencedColumnNames: id
             referencedTableName: order_
+
+        - addForeignKeyConstraint:
+            baseColumnNames: file_id
+            baseTableName: history
+            constraintName: fk_history_file
+            referencedColumnNames: file_id
+            referencedTableName: file
 
         - createTable:
             tableName: service_center
@@ -289,8 +311,15 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: image
-                  type: BLOB
+                  name: file_id
+                  type: UUID
+
+        - addForeignKeyConstraint:
+            baseColumnNames: file_id
+            baseTableName: service_center
+            constraintName: fk_service_center_file
+            referencedColumnNames: file_id
+            referencedTableName: file
 
         - createTable:
             tableName: review

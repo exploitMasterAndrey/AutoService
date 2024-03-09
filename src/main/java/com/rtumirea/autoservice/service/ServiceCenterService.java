@@ -6,6 +6,7 @@ import com.rtumirea.autoservice.dao.repository.ServiceCenterRepository;
 import com.rtumirea.autoservice.exception.AutoServiceException;
 import com.rtumirea.autoservice.mapper.entity.ServiceCenterEntityMapper;
 import com.rtumirea.autoservice.mapper.model.ServiceCenterModelMapper;
+import com.rtumirea.autoservice.model.ImageModel;
 import com.rtumirea.autoservice.model.ServiceCenterModel;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -59,8 +60,12 @@ public class ServiceCenterService {
         if (optServiceCenter.isPresent()){
             serviceCenterEntity = optServiceCenter.get();
             serviceCenterEntity.setAddress(serviceCenterModel.getAddress());
-            serviceCenterEntity.setImage(serviceCenterEntity.getImage());
             serviceCenterEntity.setMainPhone(serviceCenterModel.getMainPhone());
+            byte[] imageData = Optional.ofNullable(serviceCenterModel.getImageModel()).map(ImageModel::getImageData).get();
+            String imageType = Optional.ofNullable(serviceCenterModel.getImageModel()).map(ImageModel::getImageType).get();
+            serviceCenterEntity.getFileEntity().setFileData(imageData);
+            serviceCenterEntity.getFileEntity().setFileType(imageType);
+            serviceCenterEntity = serviceCenterRepository.save(serviceCenterEntity);
             return serviceCenterModelMapper.toModel(serviceCenterEntity);
         } else {
             String message = String.format("Unable to find service center(%s)", serviceCenterModel);

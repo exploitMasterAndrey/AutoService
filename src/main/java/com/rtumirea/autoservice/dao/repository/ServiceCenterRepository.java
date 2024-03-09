@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ServiceCenterRepository extends JpaRepository<ServiceCenterEntity, Long> {
-    @Query("select sc from ServiceCenterEntity sc")
+    @Query("select sc from ServiceCenterEntity sc " +
+            "join fetch sc.fileEntity")
     List<ServiceCenterShortEntity> getAllServiceCenters();
 }

@@ -8,6 +8,6 @@ import lombok.Setter;
 public class HistoryItemModel {
     private Long id;
     private String description;
-    private byte[] image;
+    private ImageModel imageModel;
     private OrderModel orderModel;
 }

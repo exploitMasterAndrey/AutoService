@@ -21,12 +21,15 @@ public class ServiceCenterEntity {
     private String mainPhone;
     @Column(name = "address", nullable = false)
     private String address;
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
+    @OneToOne(
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE},
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(name = "file_id", referencedColumnName = "file_id")
+    private FileEntity fileEntity;
     @OneToMany(
             fetch = FetchType.LAZY,
-            orphanRemoval = true,
+            cascade = {CascadeType.REMOVE},
             mappedBy = "serviceCenterEntity"
     )
     private List<ReviewEntity> reviewEntities;

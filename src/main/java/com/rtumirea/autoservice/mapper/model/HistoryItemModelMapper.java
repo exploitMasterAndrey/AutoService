@@ -8,12 +8,12 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {OrderModelMapper.class}
+        uses = {OrderModelMapper.class, ImageModelMapper.class}
 )
 public interface HistoryItemModelMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "description", source = "description")
-    @Mapping(target = "image", source = "image")
+    @Mapping(target = "imageModel", source = "imageEntity")
     @Mapping(target = "orderModel", source = "orderEntity")
     HistoryItemModel toModel(HistoryItemEntity historyItemEntity);
 }

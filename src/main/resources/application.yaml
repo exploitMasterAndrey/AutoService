@@ -2,6 +2,7 @@ spring:
   application:
     name: auto-service-application
   jpa:
+    show-sql: true
     hibernate:
 #      ddl-auto: update
       ddl-auto: validate
@@ -16,3 +17,8 @@ spring:
       auto-commit: false
   main:
     allow-circular-references: true
+app:
+  config:
+    image-management:
+      get:
+        path: /${spring.application.name}/v1/image/get/%s

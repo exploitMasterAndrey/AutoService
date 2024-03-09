@@ -1,6 +1,5 @@
 package com.rtumirea.autoservice.service;
 
-import com.rtumirea.autoservice.dao.entity.CarEntity;
 import com.rtumirea.autoservice.dao.entity.ConsultEntity;
 import com.rtumirea.autoservice.dao.repository.ConsultRepository;
 import com.rtumirea.autoservice.exception.AutoServiceException;

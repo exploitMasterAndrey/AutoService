@@ -2,6 +2,7 @@ package com.rtumirea.autoservice.controller;
 
 import com.rtumirea.autoservice.dto.CreateServiceCenterReqDto;
 import com.rtumirea.autoservice.dto.ServiceCenterRspDto;
+import com.rtumirea.autoservice.dto.UpdateServiceCenterReqDto;
 import com.rtumirea.autoservice.mapper.dto.ServiceCenterRspDtoMapper;
 import com.rtumirea.autoservice.mapper.model.ServiceCenterModelMapper;
 import com.rtumirea.autoservice.model.ServiceCenterModel;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -31,11 +33,31 @@ public class ServiceCenterController {
         return serviceCenterRspDtoMapper.toDto(serviceCenterModel);
     }
 
-    @GetMapping("/get")
-    public byte[] getServiceCenter(@RequestParam Long serviceId) throws IOException {
-        log.info("Received get service request(serviceId={})", serviceId);
-        ServiceCenterModel serviceCenterModel = serviceCenterService.getServiceCenter(serviceId);
-        ServiceCenterRspDto dto = serviceCenterRspDtoMapper.toDto(serviceCenterModel);
-        return dto.getImage().getContentAsByteArray();
+    @GetMapping("/get/{serviceCenterId}")
+    public ServiceCenterRspDto getServiceCenter(@PathVariable Long serviceCenterId) {
+        log.info("Received get service center request(serviceId={})", serviceCenterId);
+        ServiceCenterModel serviceCenterModel = serviceCenterService.getServiceCenter(serviceCenterId);
+        return serviceCenterRspDtoMapper.toDto(serviceCenterModel);
+    }
+
+    @GetMapping("/get-all")
+    public List<ServiceCenterRspDto> getAllServiceCenters() {
+        log.info("Received get all service centers request");
+        List<ServiceCenterModel> serviceCenterModels = serviceCenterService.getAllServiceCenters();
+        return serviceCenterRspDtoMapper.toDtos(serviceCenterModels);
+    }
+
+    @PatchMapping("/update")
+    public ServiceCenterRspDto updateServiceCenter(@Valid @ModelAttribute UpdateServiceCenterReqDto updateServiceCenterReqDto) throws IOException {
+        log.info("Received new update service center request({})", updateServiceCenterReqDto);
+        ServiceCenterModel serviceCenterModel = serviceCenterModelMapper.toModel(updateServiceCenterReqDto);
+        serviceCenterModel = serviceCenterService.updateServiceCenter(serviceCenterModel);
+        return serviceCenterRspDtoMapper.toDto(serviceCenterModel);
+    }
+
+    @DeleteMapping("/delete/{serviceCenterId}")
+    public void deleteServiceCenter(@PathVariable Long serviceCenterId){
+        log.info("Received delete service center request(serviceCenterId={})", serviceCenterId);
+        serviceCenterService.deleteServiceCenter(serviceCenterId);
     }
 }

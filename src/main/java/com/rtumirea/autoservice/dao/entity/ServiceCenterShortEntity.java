@@ -4,5 +4,5 @@ public interface ServiceCenterShortEntity {
     Long getId();
     String getMainPhone();
     String getAddress();
-    byte[] getImage();
+    FileEntity getFileEntity();
 }

@@ -17,10 +17,12 @@ public class HistoryItemEntity {
     private Long id;
     @Column(name = "description", nullable = false)
     private String description;
-    @Lob
-    @Column(name = "image", nullable = false)
-    private byte[] image;
-
+    @OneToOne(
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(name = "file_id", referencedColumnName = "file_id")
+    private FileEntity imageEntity;
     @ManyToOne(
             fetch = FetchType.LAZY
     )
