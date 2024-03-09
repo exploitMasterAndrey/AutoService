@@ -11,5 +11,6 @@ public interface ReviewRspDtoMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "comment", source = "comment")
     @Mapping(target = "creatorFullName", source = "userModel.fullName")
+    @Mapping(target = "creatorEmail", source = "userModel.email")
     ReviewRspDto toDto(ReviewModel reviewModel);
 }

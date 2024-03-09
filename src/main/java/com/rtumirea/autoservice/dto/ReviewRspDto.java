@@ -13,4 +13,6 @@ public class ReviewRspDto {
     private String comment;
     @JsonProperty("creator_full_name")
     private String creatorFullName;
+    @JsonProperty("creator_email")
+    private String creatorEmail;
 }

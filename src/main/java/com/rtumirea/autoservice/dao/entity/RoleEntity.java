@@ -13,8 +13,6 @@ import org.springframework.security.core.GrantedAuthority;
 @NoArgsConstructor
 public class RoleEntity implements GrantedAuthority {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq_gen")
-    @SequenceGenerator(name = "role_seq_gen", sequenceName = "role_seq", allocationSize = 1)
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;

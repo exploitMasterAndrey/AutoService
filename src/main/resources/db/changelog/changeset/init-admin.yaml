@@ -1,0 +1,29 @@
+databaseChangeLog:
+  -  changeSet:
+       id: init admin
+       author:  alobankov
+       changes:
+         - insert:
+             tableName: user_
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: email
+                   value: "admin@mail.ru"
+               - column:
+                   name: full_name
+                   value: "ADMIN"
+               - column:
+                   name: password
+                   value: "$2a$12$m0TKkkqIlaEAysVpQ9g0duAOH0tWL6k.QIj/rvTB94Q2xGtpolXl6"
+         -  insert:
+              tableName:  user_role
+              columns:
+                -  column:
+                     name:  user_id
+                     value:  1
+                -  column:
+                     name:  role_id
+                     value:  1

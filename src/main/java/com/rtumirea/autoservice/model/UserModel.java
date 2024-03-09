@@ -2,10 +2,12 @@ package com.rtumirea.autoservice.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Set;
 
+@ToString(exclude = {"password"})
 @Getter
 @Setter
 public class UserModel {

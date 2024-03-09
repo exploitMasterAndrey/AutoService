@@ -382,14 +382,11 @@ databaseChangeLog:
             incrementBy: 1
 
         - createSequence:
-            sequenceName: role_seq
-            incrementBy: 1
-
-        - createSequence:
             sequenceName: service_center_seq
             incrementBy: 1
 
         - createSequence:
+            startValue: 2
             sequenceName: user_seq
             incrementBy: 1
 

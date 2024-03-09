@@ -4,7 +4,9 @@ import com.rtumirea.autoservice.dao.entity.ServiceCenterEntity;
 import com.rtumirea.autoservice.dao.entity.ServiceCenterShortEntity;
 import com.rtumirea.autoservice.dto.CreateServiceCenterReqDto;
 import com.rtumirea.autoservice.dto.UpdateServiceCenterReqDto;
+import com.rtumirea.autoservice.mapper.CycleAvoidingMappingContext;
 import com.rtumirea.autoservice.model.ServiceCenterModel;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -36,7 +38,7 @@ public interface ServiceCenterModelMapper {
     @Mapping(target = "address", source = "address")
     @Mapping(target = "imageModel", source = "fileEntity")
     @Mapping(target = "reviewModels", source = "reviewEntities")
-    ServiceCenterModel toModel(ServiceCenterEntity serviceCenterEntity);
+    ServiceCenterModel toModel(ServiceCenterEntity serviceCenterEntity, @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "mainPhone", source = "mainPhone")
