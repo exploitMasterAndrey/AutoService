@@ -23,6 +23,8 @@ public class UserEntity implements UserDetails {
     private Long id;
     @Column(name = "email", unique = true, nullable = false)
     private String email;
+    @Column(name = "phone", nullable = false)
+    private String phone;
     @Column(name = "full_name", nullable = false)
     private String fullName;
     @Column(name = "password", nullable = false)

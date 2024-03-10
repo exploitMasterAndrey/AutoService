@@ -13,6 +13,7 @@ import org.mapstruct.MappingConstants;
 public interface UserEntityMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "email", source = "email")
+    @Mapping(target = "phone", source = "phone")
     @Mapping(target = "fullName", source = "fullName")
     @Mapping(target = "password", source = "password")
     @Mapping(target = "roleEntities", source = "roleModels")

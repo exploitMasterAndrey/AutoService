@@ -13,6 +13,9 @@ databaseChangeLog:
                    name: email
                    value: "admin@mail.ru"
                - column:
+                   name: phone
+                   value: "88005553535"
+               - column:
                    name: full_name
                    value: "ADMIN"
                - column:

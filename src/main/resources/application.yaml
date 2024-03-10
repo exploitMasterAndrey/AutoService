@@ -22,3 +22,7 @@ app:
     image-management:
       get:
         path: /${spring.application.name}/v1/image/get/%s
+    non-register:
+      stub:
+        phone: "без регистрации"
+        full-name: "без регистрации"

@@ -13,6 +13,7 @@ import java.util.Set;
 public class UserModel {
     private Long id;
     private String email;
+    private String phone;
     private String fullName;
     private String password;
     private Set<RoleModel> roleModels;

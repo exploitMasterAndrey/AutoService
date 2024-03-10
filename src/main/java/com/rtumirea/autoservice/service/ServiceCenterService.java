@@ -24,8 +24,9 @@ public class ServiceCenterService {
     private final ServiceCenterRepository serviceCenterRepository;
     private final ServiceCenterEntityMapper serviceCenterEntityMapper;
     private final ServiceCenterModelMapper serviceCenterModelMapper;
+    private final CycleAvoidingMappingContext cycleAvoidingMappingContext;
 
-    private static final CycleAvoidingMappingContext CYCLE_AVOIDING_MAPPING_CONTEXT = new CycleAvoidingMappingContext();
+//    private static final CycleAvoidingMappingContext CYCLE_AVOIDING_MAPPING_CONTEXT = new CycleAvoidingMappingContext();
 
     public ServiceCenterModel getServiceCenter(Long id){
         log.info("Getting service center(serviceId={})", id);
@@ -33,7 +34,7 @@ public class ServiceCenterService {
         ServiceCenterEntity serviceCenterEntity;
         if (optServiceCenter.isPresent()){
             serviceCenterEntity = optServiceCenter.get();
-            return serviceCenterModelMapper.toModel(serviceCenterEntity, CYCLE_AVOIDING_MAPPING_CONTEXT);
+            return serviceCenterModelMapper.toModel(serviceCenterEntity, cycleAvoidingMappingContext);
         } else {
             String message = String.format("Unable to find service center(serviceId=%d)", id);
             log.error(message);
@@ -52,7 +53,7 @@ public class ServiceCenterService {
         log.info("Creating new service center({})", serviceCenterModel);
         ServiceCenterEntity serviceCenterEntity = serviceCenterEntityMapper.toEntity(serviceCenterModel);
         serviceCenterEntity = serviceCenterRepository.save(serviceCenterEntity);
-        return serviceCenterModelMapper.toModel(serviceCenterEntity, CYCLE_AVOIDING_MAPPING_CONTEXT);
+        return serviceCenterModelMapper.toModel(serviceCenterEntity, cycleAvoidingMappingContext);
     }
 
     @Transactional
@@ -69,7 +70,7 @@ public class ServiceCenterService {
             serviceCenterEntity.getFileEntity().setFileData(imageData);
             serviceCenterEntity.getFileEntity().setFileType(imageType);
             serviceCenterEntity = serviceCenterRepository.save(serviceCenterEntity);
-            return serviceCenterModelMapper.toModel(serviceCenterEntity, CYCLE_AVOIDING_MAPPING_CONTEXT);
+            return serviceCenterModelMapper.toModel(serviceCenterEntity, cycleAvoidingMappingContext);
         } else {
             String message = String.format("Unable to find service center(%s)", serviceCenterModel);
             log.error(message);

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -17,12 +19,14 @@ public class HistoryItemEntity {
     private Long id;
     @Column(name = "description", nullable = false)
     private String description;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
     @OneToOne(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             fetch = FetchType.EAGER
     )
     @JoinColumn(name = "file_id", referencedColumnName = "file_id")
-    private FileEntity imageEntity;
+    private FileEntity fileEntity;
     @ManyToOne(
             fetch = FetchType.LAZY
     )

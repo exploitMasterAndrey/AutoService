@@ -13,6 +13,8 @@ import org.mapstruct.MappingConstants;
 public interface OrderEntityMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "comment", source = "comment")
+    @Mapping(target = "dateTime", source = "dateTime")
+    @Mapping(target = "orderStatus", source = "orderStatus")
     @Mapping(target = "historyItemEntities", source = "historyItemModels")
     @Mapping(target = "userEntity", source = "userModel")
     OrderEntity toEntity(OrderModel orderModel);
